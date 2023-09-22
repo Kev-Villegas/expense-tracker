@@ -13,9 +13,14 @@ import categories from '../categories';
 import { z } from 'zod';
 
 const schema = z.object({
-  description: z.string().min(3).max(40),
-  amount: z.number().min(0.01).max(100_000),
-  category: z.enum(categories),
+  description: z
+    .string()
+    .min(3, { message: 'Description should be at least 3 characters!' })
+    .max(40),
+  amount: z.number({invalid_type_error: 'Amount is required!'}).min(0.01).max(100_000),
+  category: z.enum(categories, {
+    errorMap: () => ({message: 'Category is required!'})
+  }),
 });
 
 type ExpenseFormData = z.infer<typeof schema>;
@@ -41,7 +46,11 @@ const ExpenseForm = () => {
       <FormControl>
         <Box mb='2'>
           <FormLabel htmlFor='amount'>Amount</FormLabel>
-          <Input {...register('amount')} id='amount' type='text' />
+          <Input
+            {...register('amount', { valueAsNumber: true })}
+            id='amount'
+            type='number'
+          />
           {errors.amount && (
             <Text textColor='red.600'>{errors.amount.message}</Text>
           )}
