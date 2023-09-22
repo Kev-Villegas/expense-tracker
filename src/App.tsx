@@ -2,6 +2,9 @@ import { Box } from '@chakra-ui/react';
 import ExpenseList from './components/ExpenseList';
 import { useState } from 'react';
 import ExpenseFilter from './components/ExpenseFilter';
+import ExpenseForm from './components/ExpenseForm';
+
+export const categories = ['Groceries', 'Utilities', 'Entertainment'];
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -17,7 +20,10 @@ function App() {
     : expenses;
 
   return (
-    <Box>
+    <Box p='2'>
+      <Box marginBottom='5'>
+        <ExpenseForm />
+      </Box>
       <Box marginBottom='1.5'>
         <ExpenseFilter
           onSelectCategory={(category) => setSelectedCategory(category)}
