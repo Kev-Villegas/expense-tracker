@@ -1,8 +1,10 @@
 import { Box } from '@chakra-ui/react';
 import ExpenseList from './components/ExpenseList';
 import { useState } from 'react';
+import ExpenseFilter from './components/ExpenseFilter';
 
 function App() {
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [expenses, setExpenses] = useState([
     { id: 1, description: 'Expense 1', amount: 10, category: 'Utilities' },
     { id: 2, description: 'Expense 2', amount: 10, category: 'Utilities' },
@@ -10,10 +12,20 @@ function App() {
     { id: 4, description: 'Expense 4', amount: 10, category: 'Utilities' },
   ]);
 
+  const visibleExpenses = selectedCategory
+    ? expenses.filter((e) => e.category === selectedCategory)
+    : expenses;
+
   return (
     <Box>
+      <Box marginBottom='1.5'>
+        <ExpenseFilter
+          onSelectCategory={(category) => setSelectedCategory(category)}
+        />
+      </Box>
+
       <ExpenseList
-        expenses={expenses}
+        expenses={visibleExpenses}
         onDelete={(id) => setExpenses(expenses.filter((e) => e.id !== id))}
       />
     </Box>
