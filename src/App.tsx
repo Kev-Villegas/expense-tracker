@@ -20,7 +20,7 @@ function App() {
   return (
     <Box p='2'>
       <Box marginBottom='5'>
-        <ExpenseForm />
+        <ExpenseForm onSubmit={expense => setExpenses([...expenses, {...expense, id: expenses.length + 1}])} />
       </Box>
       <Box marginBottom='1.5'>
         <ExpenseFilter
