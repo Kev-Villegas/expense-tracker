@@ -14,7 +14,7 @@ This is an Expense Tracker application built with React.js and TypeScript. The a
 1) Clone the repositorie
 ```bash
 git clone https://github.com/yourusername/expense-tracker.git
-cd clothing-ecommerce
+cd expense-tracker
 ```
 2) Install dependencies:
 ```bash
